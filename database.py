@@ -1,20 +1,25 @@
-from flask_sqlalchemy import SQLAlchemy
+import sqlite3
 
-db = SQLAlchemy()
+def save_user_data(age, intake, symptoms, result):
+    conn = sqlite3.connect('nutrition.db')
+    cursor = conn.cursor()
 
-# User table
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
+    # Create table if not exists
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS user_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            age INTEGER,
+            intake TEXT,
+            symptoms TEXT,
+            result TEXT
+        )
+    ''')
 
-# IntakeLog table
-class IntakeLog(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    food_items = db.Column(db.String(500), nullable=False)
-    symptoms = db.Column(db.String(500), nullable=True)
-    calories = db.Column(db.Integer, nullable=False)  # ✅ FIXED: This is now correct
-    prediction = db.Column(db.String(500), nullable=False)
+    # Insert the user data
+    cursor.execute('''
+        INSERT INTO user_data (age, intake, symptoms, result)
+        VALUES (?, ?, ?, ?)
+    ''', (age, str(intake), str(symptoms), str(result)))
 
-    user = db.relationship('User', backref=db.backref('intake_logs', lazy=True))
+    conn.commit()
+    conn.close()
