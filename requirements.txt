@@ -73,5 +73,6 @@ typing_extensions==4.13.2
 tzdata==2025.2
 uritemplate==4.1.1
 urllib3==2.4.0
+waitress==3.0.2
 watchdog==6.0.0
 Werkzeug==3.1.3
