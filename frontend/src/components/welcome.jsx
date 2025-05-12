@@ -7,7 +7,7 @@ const WelcomePage = () => {
       <img src="/welcome.png" alt="Welcome" className="w-96 mb-8 rounded-2xl shadow-lg" />
       <h1 className="text-4xl md:text-5xl font-bold text-purple-700 mb-4">Welcome to NutriTrack!</h1>
       <p className="text-lg text-gray-700 mb-6 max-w-xl">
-        Track your nutrition, analyze symptoms, calculate BMI (for 10-15 yrs), and get smart food suggestions with our AI-powered tool.
+        Track your nutrition, analyze symptoms, calculate BMI (for 10–15 yrs), and get smart food suggestions.
       </p>
       <Link to="/homepage">
         <button className="px-6 py-3 bg-purple-600 text-white rounded-xl shadow-md hover:bg-purple-700 transition">
