@@ -1,7 +1,16 @@
-import Welcome from './Welcome';
-import Homepage from './Homepage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WelcomePage from './components/WelcomePage';
+import HomePage from './components/HomePage';
 
-<Routes>
-  <Route path="/" element={<Welcome />} />
-  <Route path="/home" element={<Homepage />} />
-</Routes>
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/homepage" element={<HomePage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
