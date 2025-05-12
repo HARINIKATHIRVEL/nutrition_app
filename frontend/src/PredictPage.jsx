@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 
 const PredictPage = () => {
+  const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -27,6 +28,11 @@ const PredictPage = () => {
     muscleCramps: false,
     brittleNails: false,
     slowHealing: false,
+    drySkin: false,
+    frequentInfections: false,
+    poorAppetite: false,
+    delayedGrowth: false,
+    moodSwings: false,
   });
 
   const calculateBMI = () => {
@@ -42,9 +48,15 @@ const PredictPage = () => {
   };
 
   const handleSubmit = () => {
+    if (age < 10 || age > 15) {
+      alert('Age must be between 10 and 15 years.');
+      return;
+    }
+
     calculateBMI();
+
     // TODO: Send data to backend API
-    console.log({ gender, weight, height, bmi, symptoms });
+    console.log({ age, gender, weight, height, bmi, symptoms });
   };
 
   return (
@@ -53,6 +65,24 @@ const PredictPage = () => {
         <Typography variant="h4" color="primary" gutterBottom>
           Nutrition Prediction Form
         </Typography>
+
+        {/* Age Input */}
+        <Box mb={3}>
+          <TextField
+            label="Age (10–15 years)"
+            type="number"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            fullWidth
+            inputProps={{ min: 10, max: 15 }}
+            error={age !== '' && (age < 10 || age > 15)}
+            helperText={
+              age !== '' && (age < 10 || age > 15)
+                ? 'Age must be between 10 and 15 years'
+                : ''
+            }
+          />
+        </Box>
 
         {/* Gender Selection */}
         <Box mb={3}>
