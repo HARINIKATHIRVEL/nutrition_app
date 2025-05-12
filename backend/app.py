@@ -53,5 +53,10 @@ def analyze():
         'recommendations': recommendations
     })
 
+# ✅ Root route for basic check
+@app.route('/')
+def home():
+    return "✅ Nutrition App Backend is running! Try /api/foods or /api/login"
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
