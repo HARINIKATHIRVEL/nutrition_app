@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-init_db()
+init_db() 
 
 @app.route('/api/login', methods=['POST'])
 def login():
