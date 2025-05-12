@@ -4,6 +4,7 @@ from database import init_db, get_user_intake, add_intake, get_foods, add_user, 
 from model import predict_deficiencies, optimize_diet
 import pandas as pd
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 CORS(app)
