@@ -8,20 +8,27 @@ function IntakeForm({ userId }) {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/foods').then((response) => {
-      setFoods(response.data);
-      setFoodId(response.data[0]?.id || '');
-    });
+    axios
+      .get('https://nutrition-app-bcknd.onrender.com/api/foods')
+      .then((response) => {
+        setFoods(response.data);
+        setFoodId(response.data[0]?.id || '');
+      })
+      .catch(() => setMessage('Failed to load foods'));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/intake', { user_id: userId, food_id: foodId, quantity });
-      setMessage('Intake logged');
+      await axios.post('https://nutrition-app-bcknd.onrender.com/api/intake', {
+        user_id: userId,
+        food_id: foodId,
+        quantity,
+      });
+      setMessage('✅ Intake logged');
       setQuantity('');
     } catch (error) {
-      setMessage('Failed to log intake');
+      setMessage('❌ Failed to log intake');
     }
   };
 
@@ -35,7 +42,9 @@ function IntakeForm({ userId }) {
           className="border p-2 mb-2 w-full"
         >
           {foods.map((food) => (
-            <option key={food.id} value={food.id}>{food.name}</option>
+            <option key={food.id} value={food.id}>
+              {food.name}
+            </option>
           ))}
         </select>
         <input
@@ -45,11 +54,13 @@ function IntakeForm({ userId }) {
           onChange={(e) => setQuantity(e.target.value)}
           className="border p-2 mb-2 w-full"
         />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded">Log Intake</button>
+        <button type="submit" className="bg-blue-600 text-white p-2 rounded">
+          Log Intake
+        </button>
       </form>
       {message && <p className="mt-2">{message}</p>}
     </div>
   );
 }
 
-export default IntakeForm; 
+export default IntakeForm;
