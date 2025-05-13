@@ -1,6 +1,6 @@
 Flask==2.3.2
 waitress==3.0.2
-flask-cors==3.1.1
+flask-cors==5.0.1
 pandas==2.2.3
 python-dateutil==2.9.0
 numpy==2.2.5
