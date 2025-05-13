@@ -2,6 +2,15 @@ import sqlite3
 import os
 
 def init_db():
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(BASE_DIR, "nutrition.db")
+    print("📁 Creating DB at:", db_path)  # Add this line for debugging
+
+    conn = sqlite3.connect(db_path)
+import sqlite3
+import os
+
+def init_db():
     # ✅ Fix for line 5 — Use absolute path to avoid "unable to open database file"
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(BASE_DIR, "nutrition.db")
