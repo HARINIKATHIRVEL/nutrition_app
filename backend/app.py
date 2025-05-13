@@ -78,3 +78,6 @@ def home():
 if __name__ == '__main__':
     # Start the app with Waitress, using the environment-provided PORT
     serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+if __name__ == '__main__':
+    # Use Flask's built-in server for local testing
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
