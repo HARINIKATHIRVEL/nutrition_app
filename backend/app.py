@@ -77,3 +77,8 @@ if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 # --- Start the App with Flask (Local Development) ---
 
+if __name__ == '__main__':
+    if os.environ.get('ENV') == 'production':
+        serve(app, host='0.0.0.0', port=5000)
+    else:
+        app.run(debug=True, host='0.0.0.0', port=5000)
