@@ -3,6 +3,7 @@ from flask_cors import CORS
 import pandas as pd
 from datetime import datetime
 import os
+from waitress import serve
 
 app = Flask(__name__)
 CORS(app)
@@ -72,5 +73,6 @@ def calculate_bmi_api():
 def home():
     return '✅ Nutrition Backend Running'
 
+# --- Start the App with Waitress ---
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
