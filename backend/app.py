@@ -1,4 +1,3 @@
-from database import init_db
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
@@ -6,6 +5,13 @@ from datetime import datetime
 import os
 from waitress import serve
 
+# Import init_db from database.py
+try:
+    from database import init_db
+except ImportError as e:
+    print("Error importing init_db:", e)
+
+# Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
@@ -70,15 +76,15 @@ def calculate_bmi_api():
         'recommendations': recommendations
     })
 
-
-
-# --- Start the App with Waitress ---
+# --- Start the App and Initialize DB ---
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-# --- Start the App with Flask (Local Development) ---
+    try:
+        init_db()
+        print("✅ Database initialized.")
+    except Exception as e:
+        print("⚠️ Failed to initialize DB:", e)
 
-if __name__ == '__main__':
     if os.environ.get('ENV') == 'production':
         serve(app, host='0.0.0.0', port=5000)
     else:
