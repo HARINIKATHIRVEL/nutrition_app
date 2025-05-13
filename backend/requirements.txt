@@ -1,8 +1,4 @@
-Flask==2.3.2
-waitress==3.0.2
-flask-cors==5.0.1
+Flask==2.2.2
+Flask-Cors==5.0.1
 pandas==2.2.3
-python-dateutil==2.9.0
-numpy==2.2.5
-tzdata==2025.2
-six==1.17.0
+waitress==3.0.2
