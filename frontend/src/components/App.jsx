@@ -23,7 +23,8 @@ function App() {
 
   const calculateBMI = async () => {
     try {
-      const res = await axios.post(import.meta.env.VITE_API_URL + '/api/calculate_bmi', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001'; // Fallback to localhost if env var not set
+      const res = await axios.post(`${apiUrl}/api/calculate_bmi`, {
         height,
         weight,
         gender,
@@ -65,6 +66,8 @@ function App() {
           className="w-full mb-3 p-2 border rounded"
           value={age}
           onChange={(e) => setAge(e.target.value)}
+          min="10"
+          max="15"
         />
         <select
           className="w-full mb-3 p-2 border rounded"
@@ -115,10 +118,14 @@ function App() {
 
         {bmi && (
           <div className="mt-4 text-center">
-            <p className="text-lg font-semibold">BMI: {bmi}</p>
+            <p className="text-lg font-semibold">BMI: {bmi.toFixed(1)}</p>
             <p className="text-blue-700">Category: {category}</p>
-            <p className="mt-2 text-red-600 font-semibold">Deficiencies: {deficiencies.join(', ')}</p>
-            <p className="mt-1 text-green-600">Recommended Food: {recommendations.join(', ')}</p>
+            {deficiencies.length > 0 && (
+              <p className="mt-2 text-red-600 font-semibold">Deficiencies: {deficiencies.join(', ')}</p>
+            )}
+            {recommendations.length > 0 && (
+              <p className="mt-1 text-green-600">Recommended Food: {recommendations.join(', ')}</p>
+            )}
           </div>
         )}
       </div>
