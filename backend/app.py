@@ -1,22 +1,15 @@
+from database import init_db  # <-- This should be at the top
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
 from datetime import datetime
 import os
-from waitress import serve
+from waitress import serve  # <-- If you're using waitress for production
 
-# Import init_db from database.py
-try:
-    from database import init_db
-except ImportError as e:
-    print("Error importing init_db:", e)
-
-# Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
 # --- Helper Functions ---
-
 def calculate_bmi(height_cm, weight_kg):
     height_m = height_cm / 100
     bmi = weight_kg / (height_m ** 2)
@@ -52,7 +45,6 @@ def mock_recommend_food(deficiencies):
     return [food_map[d] for d in deficiencies if d in food_map]
 
 # --- API Routes ---
-
 @app.route('/api/calculate_bmi', methods=['POST'])
 def calculate_bmi_api():
     data = request.get_json()
@@ -76,16 +68,12 @@ def calculate_bmi_api():
         'recommendations': recommendations
     })
 
-# --- Start the App and Initialize DB ---
-
+# --- Start the App with Waitress ---
 if __name__ == '__main__':
     try:
-        init_db()
+        init_db()  # Initialize the database before running the app
         print("✅ Database initialized.")
     except Exception as e:
         print("⚠️ Failed to initialize DB:", e)
 
-    if os.environ.get('ENV') == 'production':
-        serve(app, host='0.0.0.0', port=5000)
-    else:
-        app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, port=5000)  # For local development
