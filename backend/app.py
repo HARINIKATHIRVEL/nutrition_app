@@ -74,5 +74,7 @@ def home():
     return '✅ Nutrition Backend Running'
 
 # --- Start the App with Waitress ---
+
 if __name__ == '__main__':
+    # Start the app with Waitress, using the environment-provided PORT
     serve(app, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
