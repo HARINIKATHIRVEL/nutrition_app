@@ -1,9 +1,8 @@
-# Production dependencies
-Flask==2.3.2               # Web framework
-flask-cors==3.0.10         # CORS support
-pandas==2.0.3              # Data analysis
-gunicorn==20.1.0           # Production server
-
-# Development dependencies (optional)
-# pytest==7.4.0            # Testing
-# python-dotenv==1.0.0     # Environment variables
+Flask==2.3.2
+waitress==3.0.2
+flask-cors==3.1.1
+pandas==2.2.3
+python-dateutil==2.9.0
+numpy==2.2.5
+tzdata==2025.2
+six==1.17.0
